@@ -122,15 +122,6 @@ def synExperimentsRegularize():
 
     return train_acc, test_acc
 
-
-# train_acc , test_acc = synExperimentsRegularize()
-# print("Training acc 1: ")
-# print(train_acc)
-# print()
-# print("Test acc 1: ")
-# print(test_acc)
-# print()
-
 #-----------------------------------------------------------------------------------------------------------------------------
 #--------------------------------------Q2a---------------------------------------------------------------------------------------------
 
@@ -186,46 +177,6 @@ def adjHinge(X, y, lamb, kernel_func, stabilizer=1e-5):
     alpha_0 = alpha_alpha_0[n]
 
     return alpha, alpha_0
-# def adjHinge(X, y, lamb, kernel_func, stabilizer=1e-5):
-#     n, d = X.shape
-#     K = kernel_func(X, X)  # Kernel matrix
-#     y = y.flatten()
-
-#     # Quadratic matrix P
-#     P = np.zeros((2 * n + 1, 2 * n + 1))
-#     P[:n, :n] = lamb * K  # Regularization on kernel matrix
-#     P += stabilizer * np.eye(2 * n + 1)  # Stabilizer
-#     P = matrix(P)
-
-#     # Linear term q
-#     q = np.zeros(2 * n + 1)
-#     q[n:] = 1  # Slack variables part
-#     q = matrix(q)
-
-#     # Inequality matrix G
-#     delta_y = np.diag(y)
-#     G = np.zeros((2 * n, 2 * n + 1))
-
-#     # Adjust this section: include an extra column for the slack variables
-#     G[:n, n+1:] = -np.eye(n)  # Slack variables ξ >= 0, extra column for intercept
-
-#     G[n:, :n] = -(delta_y @ K)  # Margin constraints
-#     G[n:, n] = -y  # Intercept term
-#     G[n:, n + 1:] = -np.eye(n)
-#     G = matrix(G)
-
-#     # Inequality bounds h
-#     h = np.zeros(2 * n)
-#     h[n:] = -1  # Margin constraint
-#     h = matrix(h)
-
-#     # Solve QP problem
-#     solution = solvers.qp(P, q, G, h, options={'show_progress': False})
-#     alpha_alpha_0 = np.array(solution['x']).flatten()
-#     alpha = alpha_alpha_0[:n]
-#     alpha_0 = alpha_alpha_0[n]
-
-#     return alpha, alpha_0
 
 def adjClassify(X_test,a,a0,X,kernel_func):
     K_test = kernel_func(X_test,X)
@@ -298,14 +249,6 @@ def synExperimentsKernel():
     test_acc = np.hstack([avg_test_acc_bindev, avg_test_acc_hinge])
 
     return train_acc, test_acc
-
-# train_acc , test_acc = synExperimentsRegularize()
-# print("Training acc 2: ")
-# print(train_acc)
-# print()
-# print("Test acc 2: ")
-# print(test_acc)
-# print()
 
 
 #-----------------------------------------------------------------------------------------------------------------------------
